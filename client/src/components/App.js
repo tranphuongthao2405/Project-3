@@ -1,11 +1,13 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
-import LandingPage from "./views/LandingPage/LandingPage.js";
-import LoginPage from "./views/LoginPage/LoginPage.js";
-import RegisterPage from "./views/RegisterPage/RegisterPage.js";
+import LandingPage from "./views/LandingPage/LandingPage";
+import LoginPage from "./views/LoginPage/LoginPage";
+import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
+import UploadTourPage from "./views/UploadTourPage/UploadTourPage";
+import RightMenu from "./views/NavBar/Sections/RightMenu";
 
 function App() {
   return (
@@ -16,6 +18,11 @@ function App() {
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
+          <Route
+            exact
+            path="/tour/upload"
+            component={Auth(UploadTourPage, true)}
+          />
         </Switch>
       </div>
       <Footer />
