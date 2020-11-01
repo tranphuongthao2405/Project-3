@@ -43,4 +43,25 @@ router.post("/uploadTour", auth, (req, res) => {
   });
 });
 
+router.post("/getTours", auth, (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = parseInt(req.body.skip);
+
+  Tour.find()
+    .populate("writer")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, tours) => {
+      if (err) {
+        return res.status(400).json({ success: false, err });
+      }
+      return res
+        .status(200)
+        .json({ success: true, tours, postSize: tours.length });
+    });
+});
+
 module.exports = router;

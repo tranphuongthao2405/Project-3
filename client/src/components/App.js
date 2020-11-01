@@ -7,7 +7,6 @@ import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import UploadTourPage from "./views/UploadTourPage/UploadTourPage";
-import RightMenu from "./views/NavBar/Sections/RightMenu";
 
 function App() {
   return (

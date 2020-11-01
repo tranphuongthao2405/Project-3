@@ -21,7 +21,7 @@ const connect = mongoose
 
 app.use(cors());
 
-//support parsing of application/x-www-form-urlencoded post data
+// support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // to get json data

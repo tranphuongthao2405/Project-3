@@ -12,7 +12,9 @@ function Footer() {
         justifyContent: "center",
         fontSize: "1rem",
       }}
-    ></div>
+    >
+      20201 - Project 3
+    </div>
   );
 }
 

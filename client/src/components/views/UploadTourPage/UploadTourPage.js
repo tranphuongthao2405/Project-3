@@ -46,6 +46,10 @@ function UploadTourPage(props) {
 
   const onSubmit = (evt) => {
     evt.preventDefault();
+
+    if (!title || !description || !vehicle || !price || !images || !place) {
+      alert("Fill all the fields first");
+    }
     const values = {
       writer: props.user.userData._id,
       title: title,
