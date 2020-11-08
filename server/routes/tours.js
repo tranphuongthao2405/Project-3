@@ -49,7 +49,23 @@ router.post("/getTours", auth, (req, res) => {
   let limit = req.body.limit ? parseInt(req.body.limit) : 100;
   let skip = parseInt(req.body.skip);
 
-  Tour.find()
+  let findArgs = {};
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+
+  console.log(findArgs);
+
+  Tour.find(findArgs)
     .populate("writer")
     .sort([[sortBy, order]])
     .skip(skip)

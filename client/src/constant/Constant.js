@@ -11,6 +11,14 @@ export const TRAVEL_PLACE = [
   { key: 10, value: "Thừa Thiên Huế" },
   { key: 11, value: "Thanh Hóa" },
   { key: 12, value: "Nghệ An" },
+  { key: 13, value: "Nha Trang" },
+  { key: 14, value: "Hải Phòng" },
+  { key: 15, value: "Lâm Đồng" },
+  { key: 16, value: "Lạng Sơn" },
+  { key: 17, value: "Phú Yên" },
+  { key: 18, value: "Đồng Tháp" },
+  { key: 19, value: "Bến Tre" },
+  { key: 20, value: "Lai Châu" },
 ];
 
 export const VEHICLES = [
@@ -18,4 +26,47 @@ export const VEHICLES = [
   { key: 2, value: "Tàu hỏa" },
   { key: 3, value: "Xe hợp đồng" },
   { key: 4, value: "Máy bay" },
+];
+
+export const FILTER_PLACE = [
+  {
+    _id: 1,
+    name: "Hà Nội",
+  },
+  {
+    _id: 2,
+    name: "Hồ Chí Minh",
+  },
+  {
+    _id: 3,
+    name: "Đà Nẵng",
+  },
+];
+
+export const PRICE = [
+  {
+    _id: 0,
+    name: "All",
+    array: [],
+  },
+  {
+    _id: 1,
+    name: "From 1.000.000 to 2.990.000",
+    array: [1000000, 2990000],
+  },
+  {
+    _id: 2,
+    name: "From 3.000.000 to 4.990.000",
+    array: [3000000, 4990000],
+  },
+  {
+    _id: 3,
+    name: "From 5.000.000 to 7.990.000",
+    array: [5000000, 7990000],
+  },
+  {
+    _id: 4,
+    name: "From 8.000.000 to 9.990.000",
+    array: [8000000, 9990000],
+  },
 ];

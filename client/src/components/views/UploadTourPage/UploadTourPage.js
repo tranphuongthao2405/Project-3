@@ -109,7 +109,7 @@ function UploadTourPage(props) {
         <label>Place:</label>
         <Select onChange={onTravelPlaceChange}>
           {TRAVEL_PLACE.map((item) => (
-            <Option key={item.key} value={item.value}>
+            <Option key={item.key} value={item.key}>
               {item.value}
             </Option>
           ))}

@@ -28,8 +28,9 @@ const tourSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
-    place: {
-      type: String,
+    places: {
+      type: Number,
+      default: 1,
     },
     sold: {
       type: Number,
