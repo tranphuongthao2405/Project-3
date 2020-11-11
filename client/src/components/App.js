@@ -8,6 +8,7 @@ import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import UploadTourPage from "./views/UploadTourPage/UploadTourPage";
 import DetailTourPage from "./views/DetailTourPage/DetailTourPage";
+import CartPage from "./views/CartPage/CartPage";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <NavBar />
       <div style={{ paddingTop: "69px", minHeight: "calc(100vh - 80px)" }}>
         <Switch>
-          <Route exact path="/" component={Auth(LandingPage, null)} />
+          <Route exact path="/" component={Auth(LandingPage, true)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route
@@ -26,8 +27,10 @@ function App() {
           <Route
             exact
             path="/tour/:tourId"
-            component={Auth(DetailTourPage, null)}
+            component={Auth(DetailTourPage, true)}
           />
+
+          <Route exact path="/user/cart" component={Auth(CartPage, true)} />
         </Switch>
       </div>
       <Footer />

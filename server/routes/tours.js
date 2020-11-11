@@ -101,6 +101,14 @@ router.get("/tours_by_id", auth, (req, res) => {
   let type = req.query.type;
   let tourId = req.query.id;
 
+  if (type === "array") {
+    let ids = req.query.id.split(",");
+    tourId = [];
+    tourId = ids.map((item) => {
+      return item;
+    });
+  }
+
   Tour.find({ _id: { $in: tourId } })
     .populate("writer")
     .exec((err, tour) => {

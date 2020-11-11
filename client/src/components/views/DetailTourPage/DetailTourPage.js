@@ -3,8 +3,11 @@ import axios from "axios";
 import { Col, Row } from "antd";
 import TourImage from "./Sections/TourImage";
 import TourInfo from "./Sections/TourInfo";
+import { addToCart } from "../../../_actions/user_actions";
+import { useDispatch } from "react-redux";
 
 function DetailTourPage(props) {
+  const dispatch = useDispatch();
   const tourId = props.match.params.tourId;
   const [tour, setTour] = useState([]);
 
@@ -16,6 +19,11 @@ function DetailTourPage(props) {
         console.log(tour);
       });
   }, []);
+
+  const addToCartHandler = (tourId) => {
+    dispatch(addToCart(tourId));
+  };
+
   return (
     <div className="detailPage" style={{ width: "100%", padding: "3rem 4rem" }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -29,7 +37,7 @@ function DetailTourPage(props) {
           <TourImage detail={tour} />
         </Col>
         <Col lg={12} xs={24} style={{ padding: "2rem" }}>
-          <TourInfo detail={tour} />
+          <TourInfo addToCart={addToCartHandler} detail={tour} />
         </Col>
       </Row>
     </div>
