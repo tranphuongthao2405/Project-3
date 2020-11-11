@@ -45,6 +45,19 @@ const tourSchema = mongoose.Schema(
   { timestamp: true }
 );
 
+tourSchema.index(
+  {
+    title: "text",
+    description: "text",
+  },
+  {
+    weights: {
+      title: 5,
+      description: 1,
+    },
+  }
+);
+
 const Tour = mongoose.model("Tour", tourSchema);
 
 module.exports = { Tour };

@@ -63,20 +63,49 @@ router.post("/getTours", auth, (req, res) => {
     }
   }
 
-  console.log(findArgs);
+  let term = req.body.searchTerm;
 
-  Tour.find(findArgs)
+  if (term) {
+    Tour.find(findArgs)
+      .find({ $text: { $search: term } })
+      .populate("writer")
+      .sort([[sortBy, order]])
+      .skip(skip)
+      .limit(limit)
+      .exec((err, tours) => {
+        if (err) {
+          return res.status(400).json({ success: false, err });
+        }
+        return res
+          .status(200)
+          .json({ success: true, tours, postSize: tours.length });
+      });
+  } else {
+    Tour.find(findArgs)
+      .populate("writer")
+      .sort([[sortBy, order]])
+      .skip(skip)
+      .limit(limit)
+      .exec((err, tours) => {
+        if (err) {
+          return res.status(400).json({ success: false, err });
+        }
+        return res
+          .status(200)
+          .json({ success: true, tours, postSize: tours.length });
+      });
+  }
+});
+
+router.get("/tours_by_id", auth, (req, res) => {
+  let type = req.query.type;
+  let tourId = req.query.id;
+
+  Tour.find({ _id: { $in: tourId } })
     .populate("writer")
-    .sort([[sortBy, order]])
-    .skip(skip)
-    .limit(limit)
-    .exec((err, tours) => {
-      if (err) {
-        return res.status(400).json({ success: false, err });
-      }
-      return res
-        .status(200)
-        .json({ success: true, tours, postSize: tours.length });
+    .exec((err, tour) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200).send(tour);
     });
 });
 

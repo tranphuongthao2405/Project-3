@@ -6,7 +6,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "./LandingPage.css";
 import CheckBox from "./Sections/Checkbox";
 import RadioBox from "./Sections/RadioBox";
-import { FILTER_PLACE, FILTER_PLACES, PRICE } from "../../../constant/Constant";
+import { FILTER_PLACE, PRICE } from "../../../constant/Constant";
+import SearchBar from "./Sections/SearchBar";
 
 const { Meta } = Card;
 const position = [51.505, -0.09];
@@ -20,6 +21,7 @@ function LandingPage() {
     places: [],
     price: [],
   });
+  const [searchTerms, setSearchTerms] = useState("");
 
   const getTours = (variables) => {
     axios.post("/api/product/getTours", variables).then((response) => {
@@ -58,7 +60,14 @@ function LandingPage() {
 
   const renderCards = tours.map((tour, index) => (
     <Col lg={6} md={8} xs={24}>
-      <Card hoverable={true} cover={<ImageSlider images={tour.images} />}>
+      <Card
+        hoverable={true}
+        cover={
+          <a href={`/tour/${tour._id}`}>
+            <ImageSlider images={tour.images} />
+          </a>
+        }
+      >
         <Meta title={tour.title} description={`${tour.price}VND`} />
       </Card>
     </Col>
@@ -102,6 +111,18 @@ function LandingPage() {
     setFilters(newFilters);
   };
 
+  const updateSearchTerms = (newSearchTerms) => {
+    const variables = {
+      skip: 0,
+      limit: limit,
+      filters: filters,
+      searchTerm: newSearchTerms,
+    };
+    setSkip(0);
+    setSearchTerms(newSearchTerms);
+    getTours(variables);
+  };
+
   return (
     <>
       <div style={{ width: "75%", margin: "3rem auto" }}>
@@ -126,6 +147,16 @@ function LandingPage() {
               />
             </Col>
           </Row>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              margin: "1rem auto",
+            }}
+          >
+            <SearchBar refreshFunction={updateSearchTerms} />
+          </div>
 
           <br />
           <br />
