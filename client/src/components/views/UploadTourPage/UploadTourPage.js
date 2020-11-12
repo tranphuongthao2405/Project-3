@@ -3,6 +3,7 @@ import { Form, Input, Button, Typography, Select } from "antd";
 import FileUpload from "../../utils/FileUpload";
 import axios from "axios";
 import { TRAVEL_PLACE, VEHICLES } from "../../../constant/Constant";
+import { Alert } from "antd";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -44,11 +45,21 @@ function UploadTourPage(props) {
     setImages(newImage);
   };
 
+  const onClose = () => {};
+
   const onSubmit = (evt) => {
     evt.preventDefault();
 
     if (!title || !description || !vehicle || !price || !images || !place) {
-      alert("Fill all the fields first");
+      return (
+        <Alert
+          message="Error"
+          description="Fill all the fields first"
+          type="error"
+          closable
+          onClose={onClose}
+        />
+      );
     }
     const values = {
       writer: props.user.userData._id,
@@ -62,10 +73,26 @@ function UploadTourPage(props) {
     };
     axios.post("/api/product/uploadTour", values).then((response) => {
       if (response.data.success) {
-        alert("Tour is successfully uploaded");
+        return (
+          <Alert
+            message="Error"
+            description="Tour is successfully uploaded"
+            type="error"
+            closable
+            onClose={onClose}
+          />
+        );
         props.history.push("/");
       } else {
-        alert("Failed to upload tour");
+        return (
+          <Alert
+            message="Error"
+            description="Failed to upload tour"
+            type="error"
+            closable
+            onClose={onClose}
+          />
+        );
       }
     });
   };

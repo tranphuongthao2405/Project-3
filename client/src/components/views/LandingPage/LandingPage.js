@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Card, Icon, Col, Row } from "antd";
 import ImageSlider from "../../utils/ImageSlider";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "./LandingPage.css";
 import CheckBox from "./Sections/Checkbox";
 import RadioBox from "./Sections/RadioBox";
 import { FILTER_PLACE, PRICE } from "../../../constant/Constant";
 import SearchBar from "./Sections/SearchBar";
+import { Alert } from "antd";
 
 const { Meta } = Card;
 const position = [51.505, -0.09];
@@ -23,6 +23,8 @@ function LandingPage() {
   });
   const [searchTerms, setSearchTerms] = useState("");
 
+  const onClose = () => {};
+
   const getTours = (variables) => {
     axios.post("/api/product/getTours", variables).then((response) => {
       if (response.data.success) {
@@ -33,7 +35,15 @@ function LandingPage() {
         }
         setPostSize(response.data.postSize);
       } else {
-        alert("Failed to fetch product data");
+        return (
+          <Alert
+            message="Error"
+            description="Failed to fetch product data"
+            type="error"
+            closable
+            onClose={onClose}
+          />
+        );
       }
     });
   };
@@ -53,6 +63,7 @@ function LandingPage() {
       limit: limit,
       loadMore: true,
       filters: filters,
+      searchTerm: searchTerms,
     };
     getTours(variables);
     setSkip(skipTemp);
@@ -184,19 +195,6 @@ function LandingPage() {
               <Button onClick={onLoadMore}>Load more</Button>
             </div>
           )}
-        </div>
-        <div>
-          <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={position}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer>
         </div>
       </div>
     </>

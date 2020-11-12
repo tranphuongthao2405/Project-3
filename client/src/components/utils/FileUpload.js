@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 import { Icon } from "antd";
 import Axios from "axios";
+import { Alert } from "antd";
+
 function FileUpload(props) {
   const [images, setImages] = useState([]);
+
+  const onClose = () => {};
 
   const onDrop = (files) => {
     let formData = new FormData();
@@ -18,7 +22,15 @@ function FileUpload(props) {
           setImages([...images, response.data.image]);
           props.refreshFunction([...images, response.data.image]);
         } else {
-          alert("Failed to save images");
+          return (
+            <Alert
+              message="Error"
+              description="Failed to save images"
+              type="error"
+              closable
+              onClose={onClose}
+            />
+          );
         }
       }
     );

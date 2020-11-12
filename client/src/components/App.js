@@ -9,6 +9,7 @@ import Footer from "./views/Footer/Footer";
 import UploadTourPage from "./views/UploadTourPage/UploadTourPage";
 import DetailTourPage from "./views/DetailTourPage/DetailTourPage";
 import CartPage from "./views/CartPage/CartPage";
+import HistoryPage from "./views/HistoryPage/HistoryPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           />
 
           <Route exact path="/user/cart" component={Auth(CartPage, true)} />
+          <Route exact path="/history" component={Auth(HistoryPage, true)} />
         </Switch>
       </div>
       <Footer />

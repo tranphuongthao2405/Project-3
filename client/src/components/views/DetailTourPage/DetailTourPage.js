@@ -5,7 +5,9 @@ import TourImage from "./Sections/TourImage";
 import TourInfo from "./Sections/TourInfo";
 import { addToCart } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
+const position = [51.505, -0.09];
 function DetailTourPage(props) {
   const dispatch = useDispatch();
   const tourId = props.match.params.tourId;
@@ -16,7 +18,6 @@ function DetailTourPage(props) {
       .get(`/api/product/tours_by_id?id=${tourId}&type=single`)
       .then((response) => {
         setTour(response.data[0]);
-        console.log(tour);
       });
   }, []);
 
@@ -40,6 +41,20 @@ function DetailTourPage(props) {
           <TourInfo addToCart={addToCartHandler} detail={tour} />
         </Col>
       </Row>
+
+      <div>
+        <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+        </MapContainer>
+      </div>
     </div>
   );
 }

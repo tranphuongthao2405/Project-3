@@ -5,6 +5,7 @@ function TourInfo(props) {
   const [tour, setTour] = useState({});
   useEffect(() => {
     setTour(props.detail);
+    console.log(props.detail);
   }, [props.detail]);
 
   const addToCartHandler = () => {
