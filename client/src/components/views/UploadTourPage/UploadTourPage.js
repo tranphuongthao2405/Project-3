@@ -17,6 +17,7 @@ function UploadTourPage(props) {
   const [blog, setBlog] = useState("");
   const [place, setPlace] = useState("");
   const [vehicle, setVehicle] = useState("");
+  const [position, setPosition] = useState([]);
 
   const onTitleChange = (evt) => {
     setTitle(evt.target.value);
@@ -47,10 +48,23 @@ function UploadTourPage(props) {
 
   const onClose = () => {};
 
+  const onPositionChange = (evt) => {
+    const positionArray = evt.target.value.split(",");
+    setPosition(positionArray);
+  };
+
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    if (!title || !description || !vehicle || !price || !images || !place) {
+    if (
+      !title ||
+      !description ||
+      !vehicle ||
+      !price ||
+      !images ||
+      !place ||
+      !position
+    ) {
       return (
         <Alert
           message="Error"
@@ -70,6 +84,7 @@ function UploadTourPage(props) {
       price: price,
       images: images,
       place: place,
+      position: position,
     };
     axios.post("/api/product/uploadTour", values).then((response) => {
       if (response.data.success) {
@@ -77,12 +92,11 @@ function UploadTourPage(props) {
           <Alert
             message="Error"
             description="Tour is successfully uploaded"
-            type="error"
+            type="success"
             closable
             onClose={onClose}
           />
         );
-        props.history.push("/");
       } else {
         return (
           <Alert
@@ -141,6 +155,14 @@ function UploadTourPage(props) {
             </Option>
           ))}
         </Select>
+        <br />
+        <br />
+        <label>Position:</label>
+        <Input
+          onChange={onPositionChange}
+          value={position}
+          placeholder="Enter longitude and latitude of place and separate with a comma. Example: 10.2,19.3"
+        />
         <br />
         <br />
         <Button onClick={onSubmit}>Submit</Button>

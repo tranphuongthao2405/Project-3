@@ -7,17 +7,21 @@ import { addToCart } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
-const position = [51.505, -0.09];
+const temp = [51.505, -0.09];
+
 function DetailTourPage(props) {
   const dispatch = useDispatch();
   const tourId = props.match.params.tourId;
   const [tour, setTour] = useState([]);
+  const [position, setPosition] = useState([]);
 
   useEffect(() => {
     axios
       .get(`/api/product/tours_by_id?id=${tourId}&type=single`)
       .then((response) => {
         setTour(response.data[0]);
+        const array = response.data[0].position.map((item) => parseFloat(item));
+        setPosition(array);
       });
   }, []);
 
@@ -43,17 +47,21 @@ function DetailTourPage(props) {
       </Row>
 
       <div>
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={position}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
+        {position && position.length > 0 ? (
+          <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={position}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </MapContainer>
+        ) : (
+          <h2>Loading Map...</h2>
+        )}
       </div>
     </div>
   );
