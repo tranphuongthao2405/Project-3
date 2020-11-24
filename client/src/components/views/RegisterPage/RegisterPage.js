@@ -4,7 +4,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { registerUser } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
-import { Alert } from "antd";
 import { Form, Input, Button } from "antd";
 
 const formItemLayout = {
@@ -32,8 +31,6 @@ const tailFormItemLayout = {
 
 function RegisterPage(props) {
   const dispatch = useDispatch();
-
-  const onClose = () => {};
 
   return (
     <Formik
@@ -71,15 +68,7 @@ function RegisterPage(props) {
             if (response.payload.success) {
               props.history.push("/login");
             } else {
-              return (
-                <Alert
-                  message="Error"
-                  description={response.payload.err.errmsg}
-                  type="error"
-                  closable
-                  onClose={onClose}
-                />
-              );
+              alert(response.payload.err.errmsg);
             }
           });
 

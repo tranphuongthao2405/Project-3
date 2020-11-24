@@ -3,8 +3,9 @@ const router = express.Router();
 const multer = require("multer");
 const { Tour } = require("../models/Tour");
 const { auth } = require("../middleware/auth");
+const gTTS = require("gtts");
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
   },
@@ -20,7 +21,7 @@ var storage = multer.diskStorage({
   },
 });
 
-var upload = multer({ storage: storage }).single("file");
+const upload = multer({ storage: storage }).single("file");
 
 router.post("/uploadImage", auth, (req, res) => {
   upload(req, res, (err) => {
@@ -113,8 +114,43 @@ router.get("/tours_by_id", auth, (req, res) => {
     .populate("writer")
     .exec((err, tour) => {
       if (err) return res.status(400).send(err);
+      // generate sound file
+      const speech = tour[0].description;
+      const gtts = new gTTS(speech, "vi");
+
+      // save sound file in uploads folder
+      if (tour[0].sound) {
+        console.log(tour[0].sound);
+      } else {
+        gtts.save(
+          `C:/Users/Admin/Desktop/Project-3/uploads/voice/${tour[0]._id}.mp3`,
+          function (err, result) {
+            if (err) {
+              throw new Error(err);
+            }
+            console.log("Text to speech converted!");
+          }
+        );
+      }
+
       return res.status(200).send(tour);
     });
+});
+
+router.post("/updateSoundFile", auth, (req, res) => {
+  let tourId = req.query.id;
+  let soundFile = String.raw`uploads\voice\``;
+  soundFile = soundFile.slice(0, -1);
+  soundFile += `${tourId}.mp3`;
+  Tour.findOneAndUpdate(
+    { _id: { $in: tourId } },
+    { $set: { sound: soundFile } },
+    { new: true },
+    (err, tour) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(tour);
+    }
+  );
 });
 
 module.exports = router;

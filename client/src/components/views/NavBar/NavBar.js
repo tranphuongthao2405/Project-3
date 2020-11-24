@@ -18,10 +18,17 @@ function NavBar() {
   return (
     <nav
       className="menu"
-      style={{ position: "fixed", zIndex: 5, width: "100%" }}
+      style={{ position: "fixed", zIndex: 9999, width: "100%" }}
     >
       <div className="menu__logo">
-        <a href="/">Logo</a>
+        <a
+          href="/"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          V-Travel
+          <br />
+          <Icon type="rocket" style={{ fontSize: 25, paddingTop: 5 }} />
+        </a>
       </div>
       <div className="menu__container">
         <div className="menu_left">

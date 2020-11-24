@@ -8,7 +8,6 @@ import {
 import UserCardBlock from "./Sections/UserCardBlock";
 import { Result, Empty } from "antd";
 import Paypal from "../../utils/PayPal";
-import { Alert } from "antd";
 
 function CartPage(props) {
   const dispatch = useDispatch();
@@ -33,8 +32,6 @@ function CartPage(props) {
       }
     }
   }, [props.user.userData]);
-
-  const onClose = () => {};
 
   const calculateTotal = (cartDetail) => {
     let totalPrice = 0;
@@ -74,15 +71,7 @@ function CartPage(props) {
         setShowSuccess(true);
         setShowTotal(false);
       } else {
-        return (
-          <Alert
-            message="Error"
-            description="Failed to buy"
-            type="error"
-            closable
-            onClose={onClose}
-          />
-        );
+        alert("Failed to buy");
       }
     });
   };

@@ -7,7 +7,6 @@ import CheckBox from "./Sections/Checkbox";
 import RadioBox from "./Sections/RadioBox";
 import { FILTER_PLACE, PRICE } from "../../../constant/Constant";
 import SearchBar from "./Sections/SearchBar";
-import { Alert } from "antd";
 
 const { Meta } = Card;
 const position = [51.505, -0.09];
@@ -23,8 +22,6 @@ function LandingPage() {
   });
   const [searchTerms, setSearchTerms] = useState("");
 
-  const onClose = () => {};
-
   const getTours = (variables) => {
     axios.post("/api/product/getTours", variables).then((response) => {
       if (response.data.success) {
@@ -35,15 +32,7 @@ function LandingPage() {
         }
         setPostSize(response.data.postSize);
       } else {
-        return (
-          <Alert
-            message="Error"
-            description="Failed to fetch product data"
-            type="error"
-            closable
-            onClose={onClose}
-          />
-        );
+        alert("Failed to fetch product data");
       }
     });
   };

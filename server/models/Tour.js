@@ -45,6 +45,9 @@ const tourSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    sound: {
+      type: String,
+    },
   },
   { timestamp: true }
 );

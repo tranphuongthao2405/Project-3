@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Descriptions } from "antd";
+import Speech from "./Speech";
 
 function TourInfo(props) {
   const [tour, setTour] = useState({});
   useEffect(() => {
     setTour(props.detail);
-    console.log(props.detail);
   }, [props.detail]);
 
   const addToCartHandler = () => {
@@ -22,9 +22,9 @@ function TourInfo(props) {
         <Descriptions.Item label="Sold" span={3}>
           {tour.sold}
         </Descriptions.Item>
-        <Descriptions.Item label="View" span={3}>
+        {/* <Descriptions.Item label="View" span={3}>
           {tour.views}
-        </Descriptions.Item>
+        </Descriptions.Item> */}
         <Descriptions.Item label="Blog" span={3}>
           <a href={tour.blog}>{tour.blog}</a>
         </Descriptions.Item>
@@ -34,8 +34,10 @@ function TourInfo(props) {
         <Descriptions.Item label="Vehicle recommend" span={3}>
           {tour.vehicle}
         </Descriptions.Item>
+        <Descriptions.Item label="Sound" span={3}>
+          <Speech soundFile={props.sound} />
+        </Descriptions.Item>
       </Descriptions>
-      <br />
       <br />
       <br />
       <div style={{ display: "flex", justifyContent: "center" }}>

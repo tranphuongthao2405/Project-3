@@ -3,7 +3,6 @@ import { Form, Input, Button, Typography, Select } from "antd";
 import FileUpload from "../../utils/FileUpload";
 import axios from "axios";
 import { TRAVEL_PLACE, VEHICLES } from "../../../constant/Constant";
-import { Alert } from "antd";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -46,8 +45,6 @@ function UploadTourPage(props) {
     setImages(newImage);
   };
 
-  const onClose = () => {};
-
   const onPositionChange = (evt) => {
     const positionArray = evt.target.value.split(",");
     setPosition(positionArray);
@@ -65,50 +62,28 @@ function UploadTourPage(props) {
       !place ||
       !position
     ) {
-      return (
-        <Alert
-          message="Error"
-          description="Fill all the fields first"
-          type="error"
-          closable
-          onClose={onClose}
-        />
-      );
+      alert("Please fill out all the field");
+    } else {
+      const values = {
+        writer: props.user.userData._id,
+        title: title,
+        description: description,
+        blog: blog,
+        vehicle: vehicle,
+        price: price,
+        images: images,
+        place: place,
+        position: position,
+      };
+
+      axios.post("/api/product/uploadTour", values).then((response) => {
+        if (response.data.success) {
+          alert("Upload tour successfully");
+        } else {
+          alert("Failed to upload tour");
+        }
+      });
     }
-    const values = {
-      writer: props.user.userData._id,
-      title: title,
-      description: description,
-      blog: blog,
-      vehicle: vehicle,
-      price: price,
-      images: images,
-      place: place,
-      position: position,
-    };
-    axios.post("/api/product/uploadTour", values).then((response) => {
-      if (response.data.success) {
-        return (
-          <Alert
-            message="Error"
-            description="Tour is successfully uploaded"
-            type="success"
-            closable
-            onClose={onClose}
-          />
-        );
-      } else {
-        return (
-          <Alert
-            message="Error"
-            description="Failed to upload tour"
-            type="error"
-            closable
-            onClose={onClose}
-          />
-        );
-      }
-    });
   };
 
   return (

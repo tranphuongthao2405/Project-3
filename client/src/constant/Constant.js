@@ -41,6 +41,74 @@ export const FILTER_PLACE = [
     _id: 3,
     name: "Đà Nẵng",
   },
+  {
+    _id: 4,
+    name: "Cần Thơ",
+  },
+  {
+    _id: 5,
+    name: "Lào Cai",
+  },
+  {
+    _id: 6,
+    name: "Quảng Ninh",
+  },
+  {
+    _id: 7,
+    name: "Quảng Nam",
+  },
+  {
+    _id: 8,
+    name: "Hà Giang",
+  },
+  {
+    _id: 9,
+    name: "Cao Bằng",
+  },
+  {
+    _id: 10,
+    name: "Thừa Thiên Huế",
+  },
+  {
+    _id: 11,
+    name: "Thanh Hóa",
+  },
+  {
+    _id: 12,
+    name: "Nghệ An",
+  },
+  {
+    _id: 13,
+    name: "Nha Trang",
+  },
+  {
+    _id: 14,
+    name: "Hải Phòng",
+  },
+  {
+    _id: 15,
+    name: "Lâm Đồng",
+  },
+  {
+    _id: 16,
+    name: "Lạng Sơn",
+  },
+  {
+    _id: 17,
+    name: "Phú Yên",
+  },
+  {
+    _id: 18,
+    name: "Đồng Tháp",
+  },
+  {
+    _id: 19,
+    name: "Bến Tre",
+  },
+  {
+    _id: 20,
+    name: "Lai Châu",
+  },
 ];
 
 export const PRICE = [
@@ -70,3 +138,5 @@ export const PRICE = [
     array: [8000000, 9990000],
   },
 ];
+
+export const API_KEY = "8da4cf1ea655d178d9764a1fbee4e1c6";
