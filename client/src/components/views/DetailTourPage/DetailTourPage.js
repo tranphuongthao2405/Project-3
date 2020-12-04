@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import WeatherInfo from "./Sections/WeatherInfo";
 import { API_KEY } from "../../../constant/Constant";
-import { concatSeries } from "async";
 
 function DetailTourPage(props) {
   const dispatch = useDispatch();
