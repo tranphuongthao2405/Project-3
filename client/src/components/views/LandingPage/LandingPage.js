@@ -9,7 +9,6 @@ import { FILTER_PLACE, PRICE } from "../../../constant/Constant";
 import SearchBar from "./Sections/SearchBar";
 
 const { Meta } = Card;
-const position = [51.505, -0.09];
 
 function LandingPage() {
   const [tours, setTours] = useState([]);

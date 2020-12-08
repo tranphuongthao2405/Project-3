@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import WeatherInfo from "./Sections/WeatherInfo";
 import { API_KEY } from "../../../constant/Constant";
+import Comment from "./Sections/Comment";
 
 function DetailTourPage(props) {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function DetailTourPage(props) {
   const [position, setPosition] = useState([]);
   const [weatherData, setWeatherData] = useState();
   const [soundFile, setSoundFile] = useState();
+  const [comments, setComments] = useState();
   const numberOfCityReturn = 1;
 
   const url = `api.openweathermap.org/data/2.5/find?lat=${position[0]}&lon=${position[1]}&cnt=${numberOfCityReturn}&appid=${API_KEY}`;
@@ -33,6 +35,18 @@ function DetailTourPage(props) {
   useEffect(() => {
     axios.post(`/api/product/updateSoundFile?id=${tourId}`).then((response) => {
       setSoundFile(response.data.sound);
+    });
+  }, []);
+
+  useEffect(() => {
+    const variables = {
+      tourId: tourId,
+    };
+
+    axios.post("/api/comments/getComments", variables).then((response) => {
+      if (response.data.success) {
+        setComments(response.data.comments);
+      }
     });
   }, []);
 
@@ -57,6 +71,10 @@ function DetailTourPage(props) {
 
   const addToCartHandler = (tourId) => {
     dispatch(addToCart(tourId));
+  };
+
+  const updateComment = (newComment) => {
+    setComments(comments.concat(newComment));
   };
 
   return (
@@ -121,6 +139,15 @@ function DetailTourPage(props) {
           Loading weather and map information...
         </h2>
       )}
+
+      <br />
+      <br />
+
+      <Comment
+        commentLists={comments}
+        tourId={tourId}
+        refreshFunction={updateComment}
+      />
     </div>
   );
 }
