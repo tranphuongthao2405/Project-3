@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Typography, Select } from "antd";
-import FileUpload from "../../utils/FileUpload";
-import axios from "axios";
-import { TRAVEL_PLACE, VEHICLES } from "../../../constant/Constant";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from 'react';
+import {
+  Form, Input, Button, Typography, Select,
+} from 'antd';
+import axios from 'axios';
+import FileUpload from '../../utils/FileUpload';
+import { TRAVEL_PLACE, VEHICLES } from '../../../constant/Constant';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
 function UploadTourPage(props) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
   const [images, setImages] = useState([]);
-  const [blog, setBlog] = useState("");
-  const [place, setPlace] = useState("");
-  const [vehicle, setVehicle] = useState("");
+  const [blog, setBlog] = useState('');
+  const [place, setPlace] = useState('');
+  const [vehicle, setVehicle] = useState('');
   const [position, setPosition] = useState([]);
 
   const onTitleChange = (evt) => {
@@ -46,7 +49,7 @@ function UploadTourPage(props) {
   };
 
   const onPositionChange = (evt) => {
-    const positionArray = evt.target.value.split(",");
+    const positionArray = evt.target.value.split(',');
     setPosition(positionArray);
   };
 
@@ -54,41 +57,41 @@ function UploadTourPage(props) {
     evt.preventDefault();
 
     if (
-      !title ||
-      !description ||
-      !vehicle ||
-      !price ||
-      !images ||
-      !place ||
-      !position
+      !title
+      || !description
+      || !vehicle
+      || !price
+      || !images
+      || !place
+      || !position
     ) {
-      alert("Please fill out all the field");
+      alert('Please fill out all the field');
     } else {
       const values = {
         writer: props.user.userData._id,
-        title: title,
-        description: description,
-        blog: blog,
-        vehicle: vehicle,
-        price: price,
-        images: images,
-        place: place,
-        position: position,
+        title,
+        description,
+        blog,
+        vehicle,
+        price,
+        images,
+        place,
+        position,
       };
 
-      axios.post("/api/product/uploadTour", values).then((response) => {
+      axios.post('/api/product/uploadTour', values).then((response) => {
         if (response.data.success) {
-          alert("Upload tour successfully");
+          alert('Upload tour successfully');
         } else {
-          alert("Failed to upload tour");
+          alert('Failed to upload tour');
         }
       });
     }
   };
 
   return (
-    <div style={{ maxWidth: "800px", margin: "2rem auto" }}>
-      <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+    <div style={{ maxWidth: '800px', margin: '2rem auto' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <Title level={2}>Upload Travel Tour</Title>
       </div>
 

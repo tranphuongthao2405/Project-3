@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   LOGIN_USER,
   REGISTER_USER,
@@ -8,8 +8,8 @@ import {
   GET_CART_ITEMS_USER,
   REMOVE_CART_ITEM_USER,
   ON_SUCCESS_BUY_USER,
-} from "./types";
-import { USER_SERVER } from "../components/Config.js";
+} from './types';
+import { USER_SERVER } from '../components/Config';
 
 export function registerUser(dataToSubmit) {
   const request = axios

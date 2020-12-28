@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Checkbox, Collapse } from "antd";
+import React, { useState } from 'react';
+import { Checkbox, Collapse } from 'antd';
 
 const { Panel } = Collapse;
 
@@ -20,14 +20,13 @@ function CheckBox(props) {
     props.handleFilters(newCheck);
   };
 
-  const renderCheckboxLists = () =>
-    props.list &&
-    props.list.map((value, index) => (
-      <React.Fragment key={index}>
+  const renderCheckboxLists = () => props.list
+    && props.list.map((value) => (
+      <React.Fragment key={`${value}${new Date().toISOString()}`}>
         <Checkbox
           onChange={() => handleToggle(value._id)}
           type="checkbox"
-          checked={check.indexOf(value._id) === -1 ? false : true}
+          checked={check.indexOf(value._id) !== -1}
         />
         &nbsp;&nbsp;
         <span>{value.name}</span>
@@ -37,7 +36,7 @@ function CheckBox(props) {
 
   return (
     <div>
-      <Collapse defaultActiveKey={["0"]}>
+      <Collapse defaultActiveKey={['0']}>
         <Panel header="Places" key="1">
           {renderCheckboxLists()}
         </Panel>

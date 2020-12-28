@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import LeftMenu from "./Sections/LeftMenu";
-import RightMenu from "./Sections/RightMenu";
-import { Drawer, Button, Icon } from "antd";
-import "./Sections/Navbar.css";
+import React, { useState } from 'react';
+import { Drawer, Button, Icon } from 'antd';
+import LeftMenu from './Sections/LeftMenu';
+import RightMenu from './Sections/RightMenu';
+import './Navbar.css';
 
 function NavBar() {
   const [visible, setVisible] = useState(false);
@@ -18,12 +18,12 @@ function NavBar() {
   return (
     <nav
       className="menu"
-      style={{ position: "fixed", zIndex: 9999, width: "100%" }}
+      style={{ position: 'fixed', zIndex: 9999, width: '100%' }}
     >
       <div className="menu__logo">
         <a
           href="/"
-          style={{ display: "flex", justifyContent: "space-between" }}
+          style={{ display: 'flex', justifyContent: 'space-between' }}
         >
           V-Travel
           <br />

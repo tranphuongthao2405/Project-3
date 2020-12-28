@@ -1,2 +1,2 @@
-//SERVER ROUTES
-export const USER_SERVER = "/api/users";
+// SERVER ROUTES
+export const USER_SERVER = '/api/users';

@@ -7,7 +7,7 @@ import {
   GET_CART_ITEMS_USER,
   REMOVE_CART_ITEM_USER,
   ON_SUCCESS_BUY_USER,
-} from "../_actions/types";
+} from '../_actions/types';
 
 export default function (state = {}, action) {
   switch (action.type) {

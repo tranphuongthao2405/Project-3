@@ -1,6 +1,8 @@
-import React from "react";
-import { Menu } from "antd";
-const SubMenu = Menu.SubMenu;
+/* eslint-disable react/destructuring-assignment */
+import React from 'react';
+import { Menu } from 'antd';
+
+const { SubMenu } = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 
 function LeftMenu(props) {

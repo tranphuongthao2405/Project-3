@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
-import ImageGallery from "react-image-gallery";
+/* eslint-disable array-callback-return */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-unused-expressions */
+import React, { useEffect, useState } from 'react';
+import ImageGallery from 'react-image-gallery';
 
 function TourImage(props) {
   const [images, setImages] = useState([]);
   useEffect(() => {
     if (props.detail.images && props.detail.images.length > 0) {
-      let imagesArray = [];
+      const imagesArray = [];
 
-      props.detail.images &&
-        props.detail.images.map((item) => {
+      props.detail.images
+        && props.detail.images.map((item) => {
           imagesArray.push({
             original: `http://localhost:5000/${item}`,
             thumbnail: `http://localhost:5000/${item}`,

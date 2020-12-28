@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Button, Card, Icon, Col, Row } from "antd";
-import ImageSlider from "../../utils/ImageSlider";
-import "./LandingPage.css";
-import CheckBox from "./Sections/Checkbox";
-import RadioBox from "./Sections/RadioBox";
-import { FILTER_PLACE, PRICE } from "../../../constant/Constant";
-import SearchBar from "./Sections/SearchBar";
+/* eslint-disable no-shadow */
+/* eslint-disable no-restricted-syntax */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import {
+  Button, Card, Icon, Col, Row,
+} from 'antd';
+import ImageSlider from '../../utils/ImageSlider';
+import './LandingPage.css';
+import CheckBox from './Sections/Checkbox';
+import RadioBox from './Sections/RadioBox';
+import { FILTER_PLACE, PRICE } from '../../../constant/Constant';
+import SearchBar from './Sections/SearchBar';
 
 const { Meta } = Card;
 
@@ -19,10 +23,10 @@ function LandingPage() {
     places: [],
     price: [],
   });
-  const [searchTerms, setSearchTerms] = useState("");
+  const [searchTerms, setSearchTerms] = useState('');
 
   const getTours = (variables) => {
-    axios.post("/api/product/getTours", variables).then((response) => {
+    axios.post('/api/product/getTours', variables).then((response) => {
       if (response.data.success) {
         if (variables.loadMore) {
           setTours([...tours, ...response.data.tours]);
@@ -38,34 +42,34 @@ function LandingPage() {
 
   useEffect(() => {
     const variables = {
-      skip: skip,
-      limit: limit,
+      skip,
+      limit,
     };
     getTours(variables);
   }, []);
 
   const onLoadMore = () => {
-    let skipTemp = skip + limit;
+    const skipTemp = skip + limit;
     const variables = {
       skip: skipTemp,
-      limit: limit,
+      limit,
       loadMore: true,
-      filters: filters,
+      filters,
       searchTerm: searchTerms,
     };
     getTours(variables);
     setSkip(skipTemp);
   };
 
-  const renderCards = tours.map((tour, index) => (
+  const renderCards = tours.map((tour) => (
     <Col lg={6} md={8} xs={24}>
       <Card
-        hoverable={true}
-        cover={
+        hoverable
+        cover={(
           <a href={`/tour/${tour._id}`}>
             <ImageSlider images={tour.images} />
           </a>
-        }
+        )}
       >
         <Meta title={tour.title} description={`${tour.price}VND`} />
       </Card>
@@ -75,7 +79,7 @@ function LandingPage() {
   const showFilterResults = (filter) => {
     const variables = {
       skip: 0,
-      limit: limit,
+      limit,
       filters: filter,
     };
     getTours(variables);
@@ -86,7 +90,7 @@ function LandingPage() {
     const data = PRICE;
     let array = [];
 
-    for (let key in data) {
+    for (const key in data) {
       if (data[key]._id === parseInt(value, 10)) {
         array = data[key].array;
       }
@@ -99,8 +103,8 @@ function LandingPage() {
     const newFilters = { ...filters };
     newFilters[category] = filter;
 
-    if (category === "price") {
-      let priceValues = handlePrice(filter);
+    if (category === 'price') {
+      const priceValues = handlePrice(filter);
       newFilters[category] = priceValues;
     }
 
@@ -113,8 +117,8 @@ function LandingPage() {
   const updateSearchTerms = (newSearchTerms) => {
     const variables = {
       skip: 0,
-      limit: limit,
-      filters: filters,
+      limit,
+      filters,
       searchTerm: newSearchTerms,
     };
     setSkip(0);
@@ -124,10 +128,12 @@ function LandingPage() {
 
   return (
     <>
-      <div style={{ width: "75%", margin: "3rem auto" }}>
-        <div style={{ textAlign: "center" }}>
+      <div style={{ width: '75%', margin: '3rem auto' }}>
+        <div style={{ textAlign: 'center' }}>
           <h2>
-            Let's travel <Icon type="rocket" />
+            Let's travel
+            {' '}
+            <Icon type="rocket" />
           </h2>
 
           <br />
@@ -136,22 +142,22 @@ function LandingPage() {
             <Col lg={12} xs={24}>
               <CheckBox
                 list={FILTER_PLACE}
-                handleFilters={(filters) => handleFilters(filters, "places")}
+                handleFilters={(filters) => handleFilters(filters, 'places')}
               />
             </Col>
             <Col lg={12} xs={24}>
               <RadioBox
                 list={PRICE}
-                handleFilters={(filters) => handleFilters(filters, "price")}
+                handleFilters={(filters) => handleFilters(filters, 'price')}
               />
             </Col>
           </Row>
 
           <div
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              margin: "1rem auto",
+              display: 'flex',
+              justifyContent: 'flex-end',
+              margin: '1rem auto',
             }}
           >
             <SearchBar refreshFunction={updateSearchTerms} />
@@ -162,10 +168,10 @@ function LandingPage() {
           {tours.length === 0 ? (
             <div
               style={{
-                display: "flex",
-                height: "300px",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                height: '300px',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <h2>Loading...</h2>
@@ -179,7 +185,7 @@ function LandingPage() {
           <br />
 
           {postSize >= limit && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button onClick={onLoadMore}>Load more</Button>
             </div>
           )}

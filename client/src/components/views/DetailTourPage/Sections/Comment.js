@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { Button, Input } from "antd";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import SingleComment from "./SingleComment";
-import ReplyComment from "./ReplyComment";
+/* eslint-disable no-shadow */
+/* eslint-disable react/destructuring-assignment */
+import React, { useState } from 'react';
+import { Button, Input } from 'antd';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import SingleComment from './SingleComment';
+import ReplyComment from './ReplyComment';
 
 function Comment(props) {
   const user = useSelector((state) => state.user);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   const handleChange = (e) => {
     setComment(e.currentTarget.value);
@@ -22,12 +24,12 @@ function Comment(props) {
       tourId: props.tourId,
     };
 
-    axios.post("/api/comments/saveComment", variables).then((response) => {
+    axios.post('/api/comments/saveComment', variables).then((response) => {
       if (response.data.success) {
-        setComment("");
+        setComment('');
         props.refreshFunction(response.data.result);
       } else {
-        alert("Failed to save comment");
+        alert('Failed to save comment');
       }
     });
   };
@@ -38,29 +40,28 @@ function Comment(props) {
       <p>Replies:</p>
       <hr />
 
-      {props.commentLists &&
-        props.commentLists.map(
-          (comment, index) =>
-            !comment.responseTo && (
-              <React.Fragment>
-                <SingleComment
-                  comment={comment}
-                  tourId={props.tourId}
-                  refreshFunction={props.refreshFunction}
-                />
-                <ReplyComment
-                  commentLists={props.commentLists}
-                  tourId={props.tourId}
-                  parentCommentId={comment._id}
-                  refreshFunction={props.refreshFunction}
-                />
-              </React.Fragment>
-            )
+      {props.commentLists
+        && props.commentLists.map(
+          (comment) => !comment.responseTo && (
+          <>
+            <SingleComment
+              comment={comment}
+              tourId={props.tourId}
+              refreshFunction={props.refreshFunction}
+            />
+            <ReplyComment
+              commentLists={props.commentLists}
+              tourId={props.tourId}
+              parentCommentId={comment._id}
+              refreshFunction={props.refreshFunction}
+            />
+          </>
+          ),
         )}
 
-      <form style={{ display: "flex" }} onSubmit={onSubmit}>
+      <form style={{ display: 'flex' }} onSubmit={onSubmit}>
         <Input
-          style={{ width: "100%", borderRadius: "5px" }}
+          style={{ width: '100%', borderRadius: '5px' }}
           onChange={handleChange}
           value={comment}
           placeholder="Write some comments ..."

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Button, Descriptions } from "antd";
-import Speech from "./Speech";
+/* eslint-disable react/destructuring-assignment */
+import React, { useEffect, useState } from 'react';
+import { Button, Descriptions } from 'antd';
+import Speech from './Speech';
 
 function TourInfo(props) {
   const [tour, setTour] = useState({});
@@ -18,7 +19,9 @@ function TourInfo(props) {
         <Descriptions.Item
           label="Price"
           span={3}
-        >{`${tour.price}VND`}</Descriptions.Item>
+        >
+          {`${tour.price}VND`}
+        </Descriptions.Item>
         <Descriptions.Item label="Sold" span={3}>
           {tour.sold}
         </Descriptions.Item>
@@ -40,7 +43,7 @@ function TourInfo(props) {
       </Descriptions>
       <br />
       <br />
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           size="large"
           shape="round"

@@ -1,10 +1,12 @@
-import React from "react";
-import "./UserCardBlock.css";
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable consistent-return */
+import React from 'react';
+import './UserCardBlock.css';
 
 function UserCardBlock(props) {
   const renderCartImage = (images) => {
     if (images.length > 0) {
-      let image = images[0];
+      const image = images[0];
       return `http://localhost:5000/${image}`;
     }
   };
@@ -21,12 +23,12 @@ function UserCardBlock(props) {
           </tr>
         </thead>
         <tbody>
-          {props.tours &&
-            props.tours.map((tour) => (
+          {props.tours
+            && props.tours.map((tour) => (
               <tr key={tour._id}>
                 <td>
                   <img
-                    style={{ width: "70px" }}
+                    style={{ width: '70px' }}
                     alt="tour"
                     src={renderCartImage(tour.images)}
                   />
@@ -34,7 +36,7 @@ function UserCardBlock(props) {
                 <td>{tour.quantity}</td>
                 <td>{`${tour.price}VND`}</td>
                 <td>
-                  <button onClick={() => props.removeItems(tour._id)}>
+                  <button onClick={() => props.removeItems(tour._id)} type="button">
                     Remove
                   </button>
                 </td>

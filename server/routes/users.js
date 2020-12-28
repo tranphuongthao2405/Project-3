@@ -231,4 +231,38 @@ router.get("/getHistory", auth, (req, res) => {
   });
 });
 
+
+router.post('/updateInformation', auth, async (req, res) => {
+  const filterUpdate = {};
+
+  // only update fields with value not null
+  if (req.body.username) {
+    filterUpdate.username = req.body.username;
+  }
+
+  if (req.body.email) {
+    filterUpdate.email = req.body.email;
+  }
+
+  if (req.body.password) {
+    let hashPassword;
+
+    try {
+      hashPassword = await bcrypt.hash(req.body.password, saltRounds);
+    } catch (err) {
+      return res.status(400).json({ success: false, err });
+    }
+
+    filterUpdate.password = hashPassword;
+  }
+
+  try {
+    const doc = await User.findOneAndUpdate({ _id: req.body.userId },
+      filterUpdate, { new: true });
+    return res.status(200).json({ success: true, doc });
+  } catch (err) {
+    return res.status(400).json({ success: false, err });
+  }
+});
+
 module.exports = router;

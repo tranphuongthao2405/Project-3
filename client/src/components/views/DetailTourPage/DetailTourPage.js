@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Col, Row } from "antd";
-import TourImage from "./Sections/TourImage";
-import TourInfo from "./Sections/TourInfo";
-import { addToCart } from "../../../_actions/user_actions";
-import { useDispatch } from "react-redux";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import WeatherInfo from "./Sections/WeatherInfo";
-import { API_KEY } from "../../../constant/Constant";
-import Comment from "./Sections/Comment";
+/* eslint-disable no-shadow */
+/* eslint-disable react/destructuring-assignment */
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Col, Row } from 'antd';
+import { useDispatch } from 'react-redux';
+import {
+  MapContainer, TileLayer, Marker, Popup,
+} from 'react-leaflet';
+import TourImage from './Sections/TourImage';
+import TourInfo from './Sections/TourInfo';
+import { addToCart } from '../../../_actions/user_actions';
+import WeatherInfo from './Sections/WeatherInfo';
+import { API_KEY } from '../../../constant/Constant';
+import Comment from './Sections/Comment';
 
 function DetailTourPage(props) {
   const dispatch = useDispatch();
-  const tourId = props.match.params.tourId;
+  const { tourId } = props.match.params;
   const [tour, setTour] = useState();
   const [position, setPosition] = useState([]);
   const [weatherData, setWeatherData] = useState();
@@ -40,10 +44,10 @@ function DetailTourPage(props) {
 
   useEffect(() => {
     const variables = {
-      tourId: tourId,
+      tourId,
     };
 
-    axios.post("/api/comments/getComments", variables).then((response) => {
+    axios.post('/api/comments/getComments', variables).then((response) => {
       if (response.data.success) {
         setComments(response.data.comments);
       }
@@ -57,10 +61,10 @@ function DetailTourPage(props) {
           City: response.data.list[0].name,
           Weather: response.data.list[0].weather[0].main,
           Temperature: `${parseFloat(
-            response.data.list[0].main.temp - 272.15
+            response.data.list[0].main.temp - 272.15,
           ).toFixed(2)} °C`,
           Feel: `${parseFloat(
-            response.data.list[0].main.feels_like - 272.15
+            response.data.list[0].main.feels_like - 272.15,
           ).toFixed(2)} °C`,
           Humidity: `${response.data.list[0].main.humidity}%`,
           Image: `http://openweathermap.org/img/wn/${response.data.list[0].weather[0].icon}.png`,
@@ -78,18 +82,18 @@ function DetailTourPage(props) {
   };
 
   return (
-    <div className="detailPage" style={{ width: "100%", padding: "3rem 4rem" }}>
+    <div className="detailPage" style={{ width: '100%', padding: '3rem 4rem' }}>
       {tour ? (
         <>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <h1>{tour.title}</h1>
           </div>
           <br />
           <Row gutter={[16, 16]}>
-            <Col lg={12} xs={24} style={{ padding: "2rem" }}>
+            <Col lg={12} xs={24} style={{ padding: '2rem' }}>
               <TourImage detail={tour} />
             </Col>
-            <Col lg={12} xs={24} style={{ paddingLeft: "2rem" }}>
+            <Col lg={12} xs={24} style={{ paddingLeft: '2rem' }}>
               <TourInfo
                 addToCart={addToCartHandler}
                 detail={tour}
@@ -99,7 +103,7 @@ function DetailTourPage(props) {
           </Row>
         </>
       ) : (
-        <h2 style={{ display: "flex", justifyContent: "center" }}>
+        <h2 style={{ display: 'flex', justifyContent: 'center' }}>
           Loading images and informations about the destination...
         </h2>
       )}
@@ -108,18 +112,18 @@ function DetailTourPage(props) {
 
       {weatherData && position && position.length > 0 ? (
         <Row gutter={[16, 16]}>
-          <Col lg={5} xs={24} style={{ padding: "2rem" }}>
+          <Col lg={5} xs={24} style={{ padding: '2rem' }}>
             <WeatherInfo weatherData={weatherData} />
           </Col>
-          <Col lg={19} xs={24} style={{ padding: "2rem" }}>
+          <Col lg={19} xs={24} style={{ padding: '2rem' }}>
             <div
               className="map"
               style={{
-                display: "flex",
-                flexDirection: "column",
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
-              <h2 style={{ marginBottom: "2rem" }}>
+              <h2 style={{ marginBottom: '2rem' }}>
                 See the map for further infomation:
               </h2>
               <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
@@ -135,7 +139,7 @@ function DetailTourPage(props) {
           </Col>
         </Row>
       ) : (
-        <h2 style={{ display: "flex", justifyContent: "center" }}>
+        <h2 style={{ display: 'flex', justifyContent: 'center' }}>
           Loading weather and map information...
         </h2>
       )}

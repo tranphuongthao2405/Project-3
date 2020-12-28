@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Comment, Avatar, Button, Input } from "antd";
-import axios from "axios";
-import { useSelector } from "react-redux";
+/* eslint-disable react/destructuring-assignment */
+import React, { useState } from 'react';
+import {
+  Comment, Avatar, Button, Input,
+} from 'antd';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function SingleComment(props) {
   const user = useSelector((state) => state.user);
-  const [commentValue, setCommentValue] = useState("");
+  const [commentValue, setCommentValue] = useState('');
   const [openReply, setOpenReply] = useState(false);
 
   const handleChange = (e) => {
@@ -26,20 +29,21 @@ function SingleComment(props) {
       content: commentValue,
     };
 
-    axios.post("/api/comments/saveComment", variables).then((response) => {
+    axios.post('/api/comments/saveComment', variables).then((response) => {
       if (response.data.success) {
-        setCommentValue("");
+        setCommentValue('');
         setOpenReply(!openReply);
         props.refreshFunction(response.data.result);
       } else {
-        alert("Failed to save Comment");
+        alert('Failed to save Comment');
       }
     });
   };
 
   const actions = [
     <span onClick={onOpenReply} key="comment-basic-reply-to">
-      Reply to{" "}
+      Reply to
+      {' '}
     </span>,
   ];
 
@@ -50,12 +54,12 @@ function SingleComment(props) {
         author={props.comment.writer.name}
         avatar={<Avatar src={props.comment.writer.image} alt="image" />}
         content={<p>{props.comment.content}</p>}
-      ></Comment>
+      />
 
       {openReply && (
-        <form style={{ display: "flex", marginBottom: 15 }} onSubmit={onSubmit}>
+        <form style={{ display: 'flex', marginBottom: 15 }} onSubmit={onSubmit}>
           <Input
-            style={{ width: "100%", borderRadius: "5px" }}
+            style={{ width: '100%', borderRadius: '5px' }}
             onChange={handleChange}
             value={commentValue}
             placeholder="Write some comments ..."
