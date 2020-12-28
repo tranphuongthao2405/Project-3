@@ -31,7 +31,7 @@ function LandingPage() {
         }
         setPostSize(response.data.postSize);
       } else {
-        alert("Failed to fetch product data");
+        // alert("Failed to fetch product data");
       }
     });
   };
