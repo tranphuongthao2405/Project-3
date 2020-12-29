@@ -1,12 +1,12 @@
 ### Guide line
 
-- Download node_modules in client (cd client) and in root folder for server :
+- Download node_modules in client (cd client), server (cd server) and in root folder for server :
 
 ```bash
 npm i
 ```
 
-- Run in dev zone:
+- Run in dev zone in root folder:
 
 ```bash
 npm run dev / npm run backend
@@ -15,13 +15,14 @@ npm run dev / npm run backend
 - Run frontend:
 
 ```bash
-cd frontend: npm run start --prefix client
+cd client: npm run start --prefix client
 ```
 
 - Run backend:
 
 ```bash
-nodemon server/index.js
+cd server: nodemon server/index.js
 ```
 
-- Start demo at localhost:3000:
+Author: Tran Phuong Thao - 20173383
+References used: React-boiler-plate repo - Author: John Ahn
