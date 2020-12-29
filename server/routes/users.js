@@ -4,6 +4,8 @@ const { User } = require("../models/User");
 const { Tour } = require("../models/Tour");
 const { Payment } = require("../models/Payment");
 const { auth } = require("../middleware/auth");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const async = require("async");
 
 router.get("/auth", auth, (req, res) => {
@@ -236,10 +238,6 @@ router.post('/updateInformation', auth, async (req, res) => {
   const filterUpdate = {};
 
   // only update fields with value not null
-  if (req.body.username) {
-    filterUpdate.username = req.body.username;
-  }
-
   if (req.body.email) {
     filterUpdate.email = req.body.email;
   }
@@ -254,6 +252,14 @@ router.post('/updateInformation', auth, async (req, res) => {
     }
 
     filterUpdate.password = hashPassword;
+  }
+
+  if (req.body.firstName) {
+    filterUpdate.firstname = req.body.firstName;
+  }
+
+  if (req.body.lastName) {
+    filterUpdate.lastname = req.body.lastName;
   }
 
   try {

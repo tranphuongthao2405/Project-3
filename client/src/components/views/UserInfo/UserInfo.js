@@ -8,13 +8,10 @@ import axios from 'axios';
 const { Title } = Typography;
 
 const UserInfo = (props) => {
-  const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
-
-  const onUsernameChange = (evt) => {
-    setUsername(evt.target.value);
-  };
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
 
   const onPasswordChange = (evt) => {
     setPassword(evt.target.value);
@@ -24,12 +21,21 @@ const UserInfo = (props) => {
     setEmail(evt.target.value);
   };
 
+  const onFirstNameChange = (evt) => {
+    setFirstName(evt.target.value);
+  };
+
+  const onLastNameChange = (evt) => {
+    setLastName(evt.target.value);
+  };
+
   const onSubmit = (evt) => {
     evt.preventDefault();
 
     const values = {
       userId: props.match.params.userId,
-      username,
+      lastName,
+      firstName,
       email,
       password,
     };
@@ -52,6 +58,24 @@ const UserInfo = (props) => {
 
       <form onSubmit={onSubmit} style={{ width: '800px' }}>
         <Form.Item>
+          <label>First name:</label>
+          <Input
+            type="text"
+            placeholder="Enter your new first name"
+            value={firstName}
+            onChange={onFirstNameChange}
+          />
+        </Form.Item>
+        <Form.Item>
+          <label>Last name:</label>
+          <Input
+            type="text"
+            placeholder="Enter your new last name"
+            value={lastName}
+            onChange={onLastNameChange}
+          />
+        </Form.Item>
+        <Form.Item>
           <label>Email:</label>
           <Input
             type="email"
@@ -67,15 +91,6 @@ const UserInfo = (props) => {
             placeholder="Enter your new password"
             value={password}
             onChange={onPasswordChange}
-          />
-        </Form.Item>
-        <Form.Item>
-          <label>Username:</label>
-          <Input
-            type="text"
-            placeholder="Enter your new username"
-            value={username}
-            onChange={onUsernameChange}
           />
         </Form.Item>
         <Button size="default" onClick={onSubmit}>
